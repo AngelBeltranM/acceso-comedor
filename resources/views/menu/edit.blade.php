@@ -1,0 +1,25 @@
+@include ('templates.header')
+@include ('templates.menu')
+<?php
+date_default_timezone_set('America/Monterrey');
+$fecha_actual = date("Y-m-d");
+date_default_timezone_set('America/Monterrey');
+$hora_actual = date("H:i:s");
+?>
+
+<div class="card">
+    <div class="card-body">
+
+        <form action="{{url('/menu'.$menu->id ) }}" method="post"></form>
+
+        @csrf
+        {{method_field('PATCH' ) }}
+
+        @include('menu.form');
+
+        </<form>
+
+
+
+    </div>
+</div>
