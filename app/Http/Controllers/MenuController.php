@@ -14,7 +14,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $datos['menu'] =Menu::paginate(5);
+        $datos['menu'] =Menu::paginate(25);
 
         return view('menu.index', $datos);
     }
@@ -44,7 +44,7 @@ class MenuController extends Controller
 
         Menu::insert($datosEntrada);
 
-        return view('menu.create');
+        return redirect()->route('menu.index');
 
     }
 
