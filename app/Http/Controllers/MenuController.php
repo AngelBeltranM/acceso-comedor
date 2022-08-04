@@ -65,11 +65,9 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        $menu = Menu::findOrFail($id);
-
-        return view('menu.edit' , compact('menu'));
+        return view('menu.edit')->with('menu', $menu);
     }
 
     /**
@@ -79,16 +77,18 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Menu $menu)
     {
 
-        $datosEntrada = request()->except(['_token', '_method']);
+        $menu->id = $request->id;
+        $menu->comida = $request->comida;
+        $menu->id_horario = $request->id_horario;
+        $menu->fecha = $request->fecha;
+        $menu->hora = $request->hora;
+        $menu->save();
 
-        Menu::where('id', '=', $id)-> update($datosEntrada);
 
-        $menu = Menu::findOrFail($id);
-
-        return view('menu.edit' , compact('menu'));
+        return redirect()->route('menu.index');
       
     }
 

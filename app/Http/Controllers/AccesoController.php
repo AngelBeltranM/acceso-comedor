@@ -63,10 +63,13 @@ class AccesoController extends Controller
                 $horarioComida = 3;
             }
 
-            if ($asistencias->horario === $horarioComida && $fecha === $asistencias->f_entrada) {
-                $operation_code = 2;
-                return response()->json(array($operation_code));
+            if (isset($assistencias)) {
+                if ($asistencias->horario === $horarioComida && $fecha === $asistencias->f_entrada) {
+                    $operation_code = 2;
+                    return response()->json(array($operation_code));
+                }
             }
+            
 
                 $asistencia = new AsistenciaModel();
                 $asistencia->NoEmp = $numero_empleado;

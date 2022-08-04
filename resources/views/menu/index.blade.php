@@ -28,7 +28,7 @@
                     <th>{{$menus -> id_horario}}</th>
 
                     <th>
-                        <a class="btn btn-warning" href="{{url('/menu/'.$menus->id.'/edit') }}"> Editar</a>
+                        <a class="btn btn-warning" href="{{ route('menu.edit', $menus)}}"> Editar</a>
                         
                         <form action="{{ url('/menu/'.$menus->id) }}" method="post">
                             @csrf

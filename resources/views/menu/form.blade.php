@@ -10,7 +10,11 @@
     </div>
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Tipo comida</label>
-        <input type="text" class="form-control" name="id_horario">
+        <select name="id_horario" class="form-control">
+            <option value="1">Almuerzo</option>
+            <option value="2">Comida</option>
+            <option value="3">Cena</option>
+        </select>
     </div>
 
 
