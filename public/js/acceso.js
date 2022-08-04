@@ -10,8 +10,12 @@ $(document).ready(function () {
         }
     });
 
-    refresh_table_registro(1);
 
+
+    setInterval(()=>{
+        getMenus();
+    }, 1000)
+    refresh_table_registro(1);
 });
 
 
@@ -150,6 +154,20 @@ function check_entry(codeqr,id) {
                 timer: 5000,
                 timerProgressBar: true,
             });
+        } else if(response_code == 2){
+            $("#person_logo").attr("src", "/images/fc_logo.png");
+            $("#table_informacion_personal tbody").empty();
+            $("#table_vehiculos tbody").empty();
+
+            Swal.fire({
+                title: 'Alerta!',
+                text: 'Usted ya está registrado',
+                icon: 'warning',
+                position: 'center',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            });
         }
 
         if (codeqr == null)
@@ -180,6 +198,22 @@ function refresh_table_registro(page) {
             let h_salida = element["h_salida"];
             let f_salida = element["f_salida"];
             let placas_vehiculos = element["placas_vehiculos"];
+            let horario = element["horario"];
+
+            switch (horario) {
+                case 1:
+                    horario = "Almuerzo"
+                break;
+                case 2:
+                    horario = "Comida"
+                break;
+                case 3:
+                    horario = "Cena"
+                break;
+                default:
+                    horario = "error"
+                    break;
+            }
 
             if (NoEmp == null)
                 NoEmp = "";
@@ -213,9 +247,7 @@ function refresh_table_registro(page) {
                 "<td>" + estatus + "</td>" +
                 "<td>" + h_entrada + "</td>" +
                 "<td>" + f_entrada + "</td>" +
-                "<td>" + h_salida + "</td>" +
-                "<td>" + f_salida + "</td>" +
-                "<td>" + placas_vehiculos + "</td>" +
+                "<td>" + horario + "</td>" +
                 "</tr>"
             );
         });
@@ -230,4 +262,39 @@ function refresh_table_registro(page) {
             refresh_table_registro(num);
         });
     });
+}
+
+//si hay cambio, se usa para comparar si el menu actual es diferente al que se trajo con .get()
+let shc = [];
+function getMenus(){
+    axios.get("getMenu").then(function (response) {
+
+        if(response.data[0] === shc) return;
+
+        shc = response.data[0];
+        $("#menu tbody").empty();
+        response.data[0].map((item, i)=>{
+            switch (item.id_horario) {
+                case 1:
+                    item.id_horario = "Almuerzo"
+                break;
+                case 2:
+                    item.id_horario = "Comida"
+                break;
+                case 3:
+                    item.id_horario = "Cena"
+                break;
+                default:
+                    item.id_horario = "error"
+                    break;
+            }
+
+            $("#menu tbody").append(
+                "<tr>" +
+                "<td>" + item.comida + "</td>" +
+                "<td>" + item.id_horario + "</td>" +
+                "</tr>"
+            );
+        })
+    })
 }

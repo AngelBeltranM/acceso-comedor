@@ -6,6 +6,7 @@ use App\Models\AsistenciaModel;
 use App\Models\EmpleadosModel;
 use App\Models\VehiculosModel;
 use App\Models\Menu;
+use Illuminate\Support\Facades\DB;
 
 
 use Illuminate\Http\Request;
@@ -45,18 +46,27 @@ class AccesoController extends Controller
 
         if (count($empleado) > 0) {
             
-            //si existe....chequear si es una entrada o una salida          
+            $asistencias = AsistenciaModel::where("NoEmp", "=", $numero_empleado)->latest()->first();
 
-            $asistencias = AsistenciaModel::where("NoEmp", "=", $numero_empleado)->orderBy('id', 'desc')->first();
-
-           
 
             $adscripcion = $empleado[0]["Adscripcion"];
             $estatus = $empleado[0]["Estatus"];
             $horario = date("H:i:s");
             $fecha = date("Y-m-d");
+            $horarioComida = date('H:i:s');
 
-            if ($asistencias == "" || $asistencias->h_salida != NULL) {
+            if (date("12:00:00") > $horarioComida && date("05:00:00") < $horarioComida) {
+                $horarioComida = 1;
+            } else if (date("12:00:00") < $horarioComida && date("17:00:00") > $horarioComida) {
+                $horarioComida = 2;
+            } else if (date("23:50:00") > $horarioComida && date("17:00:00") < $horarioComida) {
+                $horarioComida = 3;
+            }
+
+            if ($asistencias->horario === $horarioComida && $fecha === $asistencias->f_entrada) {
+                $operation_code = 2;
+                return response()->json(array($operation_code));
+            }
 
                 $asistencia = new AsistenciaModel();
                 $asistencia->NoEmp = $numero_empleado;
@@ -65,20 +75,8 @@ class AccesoController extends Controller
                 $asistencia->adscripcion = $adscripcion;
                 $asistencia->estatus = $estatus;
                 $asistencia->TurnoID = $request->id;
+                $asistencia->horario = $horarioComida;
                 $asistencia->save();
-            } else {
-
-                $id_asistencia = $asistencias->id;
-
-                $asistencia = AsistenciaModel::find($id_asistencia);
-
-                $asistencia->f_salida = $fecha;
-                $asistencia->h_salida = $horario;
-                $asistencia->adscripcion = $adscripcion;
-                $asistencia->estatus = $estatus;
-                $asistencia->TurnoID = $request->id;
-                $asistencia->save();
-            }
 
             $vehiculos = VehiculosModel::where("NoEmp", "=", $numero_empleado)->get()->toArray();
 
@@ -87,5 +85,23 @@ class AccesoController extends Controller
             $operation_code = 1;
             return response()->json(array($operation_code));
         }
+    }
+
+    public function getMenus(){
+        $horarioComida = date('H:i:s');
+
+            if (date("12:00:00") > $horarioComida && date("05:00:00") < $horarioComida) {
+                $horarioComida = 1;
+            } else if (date("12:00:00") < $horarioComida && date("17:00:00") > $horarioComida) {
+                $horarioComida = 2;
+            } else if (date("23:00:00") > $horarioComida && date("17:00:00") < $horarioComida) {
+                $horarioComida = 3;
+            }
+
+
+            $menus = DB::table('menu')->where('id_horario', '=', $horarioComida)->get();
+            
+
+            return response()->json(array($menus));
     }
 }

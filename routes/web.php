@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('acceso', [AccesoController::class, 'index'])->middleware('auth');
 Route::post('check_entry', [AccesoController::class, 'check_entry']);
+Route::get('getMenu', [AccesoController::class, 'getMenus']);
 Route::post('refresh_table_registro', [AccesoController::class, 'refresh_table_registro']);
 
 Route::put('/update/{id}', [ProveedorController::class, 'update'])->name('crud.update_provees');

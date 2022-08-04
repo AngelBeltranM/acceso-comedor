@@ -41,25 +41,16 @@
         </div>
     </div>
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        <table class="table table-striped table-hover table-bordered">
+        <table class="table table-striped table-hover table-bordered" id="menu">
             <thead>
                 <tr>
                     <!-- <th scope="col">No.</th> -->
                     <th scope="col">Comidas</th>
                     <th scope="col">Tipo Comida</th>
-
-
-
                 </tr>
             </thead>
             <tbody>
 
-                @foreach($menu as $menus)   
-                <tr>  <td>{{$menus -> comida}}</td>
-                <td>{{$menus -> id_horario}} Comida</td></tr>
-               
-
-                @endforeach
             </tbody>
 
         </table>
@@ -148,10 +139,9 @@
                                     <th scope="col">Nombre Completo</th>
                                     <th scope="col">Adscripcion</th>
                                     <th scope="col">Estatus</th>
-                                    <th scope="col">Hora Entrada</th>
-                                    <th scope="col">Fecha Entrada</th>
-                                    <th scope="col">Hora Salida</th>
-                                    <th scope="col">Fecha Salida</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Horario</th>
                                 </tr>
                             </thead>
                             <tbody>
