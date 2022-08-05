@@ -84,3 +84,4 @@ Route::get('ConsVehiculos', [\App\Http\Controllers\ConsVehi::class, 'index']);
 
 
 Route::resource('menu', MenuController::class);
+

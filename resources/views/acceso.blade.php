@@ -35,32 +35,34 @@
     <div class="card">
         <div class="card-body">
 
-        <div style="background-color:#c58845" class="alert alert-primary d-flex align-items-center" role="alert">
-        <div>
-            <h2>Menu</h2>
+            <div style="background-color:#c58845" class="alert alert-primary d-flex align-items-center" role="alert">
+                <div>
+                    <h2>Menu</h2>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-wrapper-scroll-x my-custom-scrollbar">
+                    <table class="table table-striped table-hover table-bordered" id="menu">
+                        <thead>
+                            <tr>
+                                <!-- <th scope="col">No.</th> -->
+                                <th scope="col">Comidas</th>
+                                <th scope="col">Tipo Comida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        <table class="table table-striped table-hover table-bordered" id="menu">
-            <thead>
-                <tr>
-                    <!-- <th scope="col">No.</th> -->
-                    <th scope="col">Comidas</th>
-                    <th scope="col">Tipo Comida</th>
-                </tr>
-            </thead>
-            <tbody>
 
-            </tbody>
 
-        </table>
-
-    </div>
-
-        </div>
-    </div>
-
-    
 
 
 

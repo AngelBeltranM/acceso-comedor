@@ -1,4 +1,6 @@
 <div class="container" id="QR-Code">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="navbar-form navbar-left">
